@@ -15,7 +15,12 @@ class GoLTruths with ChangeNotifier {
   bool get isReady => _ready;
 
   // setters
-  set toggleCell(_) => _truths[0][0];
+  set toggleCell(CellLocation loc) => _toggleCell(loc);
+
+  _toggleCell(CellLocation loc) {
+    _truths[loc.row][loc.col] = !_truths[loc.row][loc.col];
+    notifyListeners();
+  }
 
   // methods
   initGame() {
@@ -80,4 +85,10 @@ class Cell {
   final int id;
   bool status;
   Cell({this.id, this.status});
+}
+
+class CellLocation {
+  final int row;
+  final int col;
+  const CellLocation({this.row, this.col});
 }

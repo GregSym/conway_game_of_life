@@ -14,7 +14,8 @@ class MaterialCanvasGoL extends StatelessWidget {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: _goLTruths.crossAxis),
                 children: _goLTruths.truths
-                    .expand((row) => row.map((cell) => _cellWidget(cell)))
+                    .expand(
+                        (row) => row.map((cell) => _cellWidget(context, cell)))
                     .toList(),
               ),
       ),
@@ -22,14 +23,18 @@ class MaterialCanvasGoL extends StatelessWidget {
     );
   }
 
-  Container _cellWidget(bool e) {
+  Consumer<GoLTruths> _cellWidget(BuildContext context, bool e) {
     // returns the widget responsible for rendering each cell
-    return Container(
-      padding: EdgeInsets.all(1.0),
-      color: e ? ColorConstants().aliveColor : Colors.white,
-      child: ListTile(
-        onTap: () => e = !e,
-      ),
-    );
+    return Consumer<GoLTruths>(
+        builder: (context, _goLTruths, _) => Container(
+              padding: EdgeInsets.all(1.0),
+              color: e ? ColorConstants().aliveColor : Colors.white,
+              child: ListTile(
+                onTap: () => _goLTruths.toggleCell = CellLocation(
+                  row: 0,
+                  col: 0,
+                ),
+              ),
+            ));
   }
 }
