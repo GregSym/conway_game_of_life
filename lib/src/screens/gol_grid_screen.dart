@@ -6,14 +6,15 @@ import 'package:provider/provider.dart';
 class MaterialCanvasGoL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    GoLTruths game = Provider.of<GoLTruths>(context);
-    var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: game.crossAxis);
-    List<List<bool>> cells = game.truths;
     return Material(
-      child: GridView(
-        gridDelegate: gridDelegate,
-        children: cells.expand((e) => e.map((el) => _cellWidget(el))).toList(),
+      child: Consumer<GoLTruths>(
+        builder: (context, _goLTruths, _) => GridView(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: _goLTruths.crossAxis),
+          children: _goLTruths.truths
+              .expand((row) => row.map((cell) => _cellWidget(cell)))
+              .toList(),
+        ),
       ),
       color: ColorConstants().aliveColor,
     );

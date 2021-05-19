@@ -8,11 +8,16 @@ class GoLTruths with ChangeNotifier {
   int _width = 16;
   int _height = 32;
 
+  // getters
   int get crossAxis => _truths[0].length;
   List<List<bool>> get truths => _truths;
   int get totalAlive => _tallyTruths();
   bool get isReady => _ready;
 
+  // setters
+  set toggleCell(_) => _truths[0][0];
+
+  // methods
   initGame() {
     for (int j = 0; j < _height; j++) {
       // set height
