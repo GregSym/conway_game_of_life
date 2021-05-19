@@ -1,6 +1,9 @@
+import 'package:conway_game_of_life/src/game_objects/gol_truths.dart';
 import 'package:flutter/material.dart';
 
 import 'src/screens/gol_grid_screen.dart';
+
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
@@ -25,7 +28,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: MaterialCanvasGoL(),
+      home: ChangeNotifierProvider(
+        create: (BuildContext context) => GoLTruths()..initGame(),
+        child: MaterialCanvasGoL(),
+      ),
     );
   }
 }

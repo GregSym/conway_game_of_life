@@ -1,12 +1,12 @@
 import 'package:conway_game_of_life/src/constants/color_constants.dart';
 import 'package:conway_game_of_life/src/game_objects/gol_truths.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MaterialCanvasGoL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    GoLTruths game = GoLTruths();
-    game.initGame = 0;
+    GoLTruths game = Provider.of<GoLTruths>(context);
     var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: game.crossAxis);
     List<List<bool>> cells = game.truths;

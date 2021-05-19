@@ -1,5 +1,8 @@
-class GoLTruths {
+import 'package:flutter/foundation.dart';
+
+class GoLTruths with ChangeNotifier {
   List<List<bool>> _truths = [];
+  bool _ready = false;
 
   // starting dimensions
   int _width = 16;
@@ -8,10 +11,9 @@ class GoLTruths {
   int get crossAxis => _truths[0].length;
   List<List<bool>> get truths => _truths;
   int get totalAlive => _tallyTruths();
+  bool get isReady => _ready;
 
-  set initGame(_) => _setup();
-
-  _setup() {
+  initGame() {
     for (int j = 0; j < _height; j++) {
       // set height
       _truths.add([]);
@@ -22,6 +24,8 @@ class GoLTruths {
         row.add(false);
       }
     }
+    _ready = true;
+    notifyListeners();
   }
 
   _tallyTruths() {
