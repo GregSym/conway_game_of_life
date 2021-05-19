@@ -5,9 +5,9 @@ class GoLTruths {
   int _width = 16;
   int _height = 32;
 
-  get crossAxis => _truths[0].length;
-  get truths => _truths;
-  get totalAlive => _tallyTruths();
+  int get crossAxis => _truths[0].length;
+  List<List<bool>> get truths => _truths;
+  int get totalAlive => _tallyTruths();
 
   set initGame(_) => _setup();
 
