@@ -8,13 +8,15 @@ class MaterialCanvasGoL extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       child: Consumer<GoLTruths>(
-        builder: (context, _goLTruths, _) => GridView(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: _goLTruths.crossAxis),
-          children: _goLTruths.truths
-              .expand((row) => row.map((cell) => _cellWidget(cell)))
-              .toList(),
-        ),
+        builder: (context, _goLTruths, _) => !_goLTruths.isReady
+            ? CircularProgressIndicator() // in case setup takes some time
+            : GridView(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: _goLTruths.crossAxis),
+                children: _goLTruths.truths
+                    .expand((row) => row.map((cell) => _cellWidget(cell)))
+                    .toList(),
+              ),
       ),
       color: ColorConstants().aliveColor,
     );
