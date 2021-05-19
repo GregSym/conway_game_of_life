@@ -3,6 +3,16 @@ import 'package:conway_game_of_life/src/game_objects/gol_truths.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+Iterable<MapEntry<int, T>> enumerate<T>(Iterable<T> items) sync* {
+  // https://stackoverflow.com/questions/54898767/enumerate-or-map-through-a-list-with-index-and-value-in-dart
+  // a way of sort of doing the thing other languages have by default
+  int index = 0;
+  for (T item in items) {
+    yield MapEntry(index, item);
+    index = index + 1;
+  }
+}
+
 class MaterialCanvasGoL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,9 +23,12 @@ class MaterialCanvasGoL extends StatelessWidget {
             : GridView(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: _goLTruths.crossAxis),
-                children: _goLTruths.truths
-                    .expand(
-                        (row) => row.map((cell) => _cellWidget(context, cell)))
+                children: enumerate(_goLTruths.truths)
+                    .expand((row) => row.value
+                        .asMap()
+                        .map((col, cell) => MapEntry(
+                            col, _cellWidget(context, row.key, col, cell)))
+                        .values)
                     .toList(),
               ),
       ),
@@ -23,16 +36,19 @@ class MaterialCanvasGoL extends StatelessWidget {
     );
   }
 
-  Consumer<GoLTruths> _cellWidget(BuildContext context, bool e) {
+  Consumer<GoLTruths> _cellWidget(
+      BuildContext context, int row, int col, bool cell) {
     // returns the widget responsible for rendering each cell
     return Consumer<GoLTruths>(
-        builder: (context, _goLTruths, _) => Container(
-              padding: EdgeInsets.all(1.0),
-              color: e ? ColorConstants().aliveColor : Colors.white,
-              child: ListTile(
-                onTap: () => _goLTruths.toggleCell = CellLocation(
-                  row: 0,
-                  col: 0,
+        builder: (context, _goLTruths, _) => Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Container(
+                color: cell ? ColorConstants().aliveColor : Colors.white,
+                child: ListTile(
+                  onTap: () => _goLTruths.toggleCell = CellLocation(
+                    row: row,
+                    col: col,
+                  ),
                 ),
               ),
             ));
