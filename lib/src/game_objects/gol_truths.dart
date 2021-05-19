@@ -33,6 +33,20 @@ class GoLTruths with ChangeNotifier {
     notifyListeners();
   }
 
+  expandWidth() {
+    for (List<bool> row in _truths) {
+      row.insert(0, false);
+      row.add(false);
+    }
+    notifyListeners();
+  }
+
+  expandHeight() {
+    // TODO: finish height expansion function for grid of cells
+    _truths.insert(0, []);
+    _truths.add([]);
+  }
+
   _tallyTruths() {
     int total = 0;
     for (List<bool> row in _truths) {
