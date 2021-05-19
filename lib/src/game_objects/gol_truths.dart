@@ -33,8 +33,6 @@ class GoLTruths with ChangeNotifier {
     notifyListeners();
   }
 
-  _setCell(int id) {}
-
   expandWidth() {
     for (List<bool> row in _truths) {
       row.insert(0, false);
@@ -44,9 +42,12 @@ class GoLTruths with ChangeNotifier {
   }
 
   expandHeight() {
-    // TODO: finish height expansion function for grid of cells
     _truths.insert(0, []);
     _truths.add([]);
+    for (bool _ in _truths[1]) {
+      _truths[0].add(false);
+      _truths[_truths.length].add(false);
+    }
     notifyListeners();
   }
 
@@ -57,6 +58,10 @@ class GoLTruths with ChangeNotifier {
     }
     _truths.insert(0, []);
     _truths.add([]);
+    for (bool _ in _truths[1]) {
+      _truths[0].add(false);
+      _truths[_truths.length].add(false);
+    }
     notifyListeners(); // worried about calling notifyListeners while notifying listeners so rewriting the contents for this one
   }
 
