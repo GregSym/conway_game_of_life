@@ -6,6 +6,7 @@ class MaterialCanvasGoL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GoLTruths game = GoLTruths();
+    game.initGame = 0;
     var gridDelegate = SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: game.crossAxis);
     List<List<bool>> cells = game.truths;
@@ -22,6 +23,9 @@ class MaterialCanvasGoL extends StatelessWidget {
     // returns the widget responsible for rendering each cell
     return Container(
       color: e ? ColorConstants().aliveColor : Colors.white,
+      child: ListTile(
+        onTap: () => e = !e,
+      ),
     );
   }
 }
