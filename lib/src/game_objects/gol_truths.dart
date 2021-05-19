@@ -5,8 +5,8 @@ class GoLTruths with ChangeNotifier {
   bool _ready = false;
 
   // starting dimensions
-  int _width = 16;
-  int _height = 32;
+  int _width = 160;
+  int _height = 320;
 
   // getters
   int get crossAxis => _truths[0].length;
