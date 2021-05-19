@@ -25,6 +25,7 @@ class MaterialCanvasGoL extends StatelessWidget {
   Container _cellWidget(bool e) {
     // returns the widget responsible for rendering each cell
     return Container(
+      padding: EdgeInsets.all(1.0),
       color: e ? ColorConstants().aliveColor : Colors.white,
       child: ListTile(
         onTap: () => e = !e,

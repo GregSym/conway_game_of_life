@@ -33,6 +33,8 @@ class GoLTruths with ChangeNotifier {
     notifyListeners();
   }
 
+  _setCell(int id) {}
+
   expandWidth() {
     for (List<bool> row in _truths) {
       row.insert(0, false);
@@ -67,4 +69,10 @@ class GoLTruths with ChangeNotifier {
     }
     return total;
   }
+}
+
+class Cell {
+  final int id;
+  bool status;
+  Cell({this.id, this.status});
 }
