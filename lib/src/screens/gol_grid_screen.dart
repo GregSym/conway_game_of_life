@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:conway_game_of_life/src/constants/color_constants.dart';
 import 'package:conway_game_of_life/src/game_objects/gol_truths.dart';
 import 'package:flutter/material.dart';
@@ -16,23 +18,41 @@ Iterable<MapEntry<int, T>> enumerate<T>(Iterable<T> items) sync* {
 class MaterialCanvasGoL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Consumer<GoLTruths>(
-        builder: (context, _goLTruths, _) => !_goLTruths.isReady
-            ? CircularProgressIndicator() // in case setup takes some time
-            : GridView(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: _goLTruths.crossAxis),
-                children: enumerate(_goLTruths.truths)
-                    .expand((row) => row.value
-                        .asMap()
-                        .map((col, cell) => MapEntry(
-                            col, _cellWidget(context, row.key, col, cell)))
-                        .values)
-                    .toList(),
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () =>
+                  Provider.of<GoLTruths>(context, listen: false).resetGame(),
+            ),
+            IconButton(
+              icon: Icon(Icons.play_arrow_rounded),
+              onPressed: () =>
+                  Provider.of<GoLTruths>(context, listen: false).driveUpdate(),
+            ),
+          ],
+        ),
       ),
-      color: ColorConstants().aliveColor,
+      body: Material(
+        child: Consumer<GoLTruths>(
+          builder: (context, _goLTruths, _) => !_goLTruths.isReady
+              ? CircularProgressIndicator() // in case setup takes some time
+              : GridView(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: _goLTruths.crossAxis),
+                  children: enumerate(_goLTruths.truths)
+                      .expand((row) => row.value
+                          .asMap()
+                          .map((col, cell) => MapEntry(
+                              col, _cellWidget(context, row.key, col, cell)))
+                          .values)
+                      .toList(),
+                ),
+        ),
+        color: ColorConstants().aliveColor,
+      ),
     );
   }
 
