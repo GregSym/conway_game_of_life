@@ -1,3 +1,4 @@
+import 'package:conway_game_of_life/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 class MaterialCanvasGoL extends StatelessWidget {
@@ -11,11 +12,11 @@ class MaterialCanvasGoL extends StatelessWidget {
         gridDelegate: gridDelegate,
         children: cellsRow
             .map((e) => Container(
-                  color: Colors.white,
+                  color: e ? ColorConstants().aliveColor : Colors.white,
                 ))
             .toList(),
       ),
-      color: Colors.purple[600],
+      color: ColorConstants().aliveColor,
     );
   }
 }
