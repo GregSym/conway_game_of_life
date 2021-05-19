@@ -45,6 +45,17 @@ class GoLTruths with ChangeNotifier {
     // TODO: finish height expansion function for grid of cells
     _truths.insert(0, []);
     _truths.add([]);
+    notifyListeners();
+  }
+
+  expandSymmetric() {
+    for (List<bool> row in _truths) {
+      row.insert(0, false);
+      row.add(false);
+    }
+    _truths.insert(0, []);
+    _truths.add([]);
+    notifyListeners(); // worried about calling notifyListeners while notifying listeners so rewriting the contents for this one
   }
 
   _tallyTruths() {
