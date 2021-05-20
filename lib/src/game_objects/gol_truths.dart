@@ -5,9 +5,10 @@ import 'package:flutter/foundation.dart';
 class GoLTruths with ChangeNotifier {
   List<List<bool>> _truths = [];
   bool _ready = false;
+  Timer updateTimer;
 
   // starting dimensions
-  int _width = 8;
+  int _width = 4;
   int _height = 32;
 
   // getters
@@ -42,42 +43,51 @@ class GoLTruths with ChangeNotifier {
 
   resetGame() {
     _truths.clear();
+    updateTimer.cancel();
     initGame();
   }
 
   driveUpdate() {
-    Timer.periodic(Duration(milliseconds: 500), (timer) => update());
+    updateTimer =
+        Timer.periodic(Duration(milliseconds: 500), (timer) => update());
   }
 
   void update() {
-    _updateCells();
+    _updateRows();
     notifyListeners();
   }
 
-  void _updateCells() {
+  void _updateRows() {
     for (int i = 1; i < _truths.length - 1; i++) {
       for (int j = 1; j < _truths[0].length - 1; j++) {
-        int aliveNeighbours = 0;
-        bool currentCell = _truths[i][j];
-        List<bool> neighbours = [
-          _truths[i - 1][j],
-          _truths[i - 1][j - 1],
-          _truths[i - 1][j + 1],
-          _truths[i][j - 1],
-          _truths[i][j + 1],
-          _truths[i + 1][j],
-          _truths[i + 1][j - 1],
-          _truths[i + 1][j + 1], // needs to have 8 neighbours
-        ];
-        for (bool neighbour in neighbours) if (neighbour) aliveNeighbours++;
-        if (!currentCell && aliveNeighbours == 3) {
-          _truths[i][j] = true; // dead comes alive
-        } else if (currentCell) {
-          if (aliveNeighbours == 2 || aliveNeighbours == 3)
-            null; // alive stays alive
-        } else
-          _truths[i][j] = false; // dead cell condition
+        _updateCell(i, j);
       }
+    }
+  }
+
+  void _updateCell(int i, int j) {
+    int aliveNeighbours = 0;
+    bool currentCell = _truths[i][j];
+    List<bool> neighbours = [
+      _truths[i - 1][j],
+      _truths[i - 1][j - 1],
+      _truths[i - 1][j + 1],
+      _truths[i][j - 1],
+      _truths[i][j + 1],
+      _truths[i + 1][j],
+      _truths[i + 1][j - 1],
+      _truths[i + 1][j + 1], // needs to have 8 neighbours
+    ];
+    for (bool neighbour in neighbours) if (neighbour) aliveNeighbours++;
+    if (!currentCell && aliveNeighbours == 3) {
+      _truths[i][j] = true; // dead comes alive
+    } else if (currentCell) {
+      if (aliveNeighbours == 2 || aliveNeighbours == 3)
+        _truths[i][j] = true; // alive stays alive
+      else
+        _truths[i][j] = false; // dead cell condition
+    } else {
+      _truths[i][j] = false; // dead cell condition
     }
   }
 

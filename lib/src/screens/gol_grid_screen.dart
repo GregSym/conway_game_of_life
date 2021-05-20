@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:conway_game_of_life/src/constants/color_constants.dart';
 import 'package:conway_game_of_life/src/game_objects/gol_truths.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +61,9 @@ class MaterialCanvasGoL extends StatelessWidget {
         builder: (context, _goLTruths, _) => Padding(
               padding: const EdgeInsets.all(2.0),
               child: Container(
-                color: cell ? ColorConstants().aliveColor : Colors.white,
+                color: _goLTruths.truths[row][col]
+                    ? ColorConstants().aliveColor
+                    : Colors.white,
                 child: ListTile(
                   onTap: () => _goLTruths.toggleCell = CellLocation(
                     row: row,
