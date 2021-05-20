@@ -1,16 +1,10 @@
 # conway_game_of_life
 
-A new Flutter project.
+Does what it says on the lid. It's Conway's Game of Life, done in a way that is, as best as I can tell, super inefficient.
 
-## Getting Started
+So probably don't copy my implementation, but because this is very surface level Flutter stuff it should be buildable for most platforms.
 
-This project is a starting point for a Flutter application.
+I've tested:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<li>Chrome</li>
+<li>Android Q</li>
