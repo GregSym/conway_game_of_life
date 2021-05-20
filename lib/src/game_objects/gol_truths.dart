@@ -66,16 +66,18 @@ class GoLTruths with ChangeNotifier {
   }
 
   void _updateRows() {
-    _nextIterationCells =
-        List.from(_cells); // get the last grid of cells to work off of
+    _nextIterationCells = _cells
+        .map((e) => e.map((cell) => false).toList())
+        .toList(); // get the last grid of cells to work off of - set all to false?
     for (int i = 1; i < _cells.length - 1; i++) {
       for (int j = 1; j < _cells[0].length - 1; j++) {
         _updateCell(i, j);
       }
     }
     //if (_cells.isNotEmpty) _cells.clear();
-    _cells = List.from(
-        _nextIterationCells); // update current cells all at once from a new layer
+    _cells = _nextIterationCells
+        .map((e) => e)
+        .toList(); // update current cells all at once from a new layer
   }
 
   void _updateCell(int i, int j) {
