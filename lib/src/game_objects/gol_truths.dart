@@ -8,7 +8,7 @@ class GoLTruths with ChangeNotifier {
   Timer updateTimer;
 
   // starting dimensions
-  int _width = 4;
+  int _width = 10;
   int _height = 32;
 
   // getters
