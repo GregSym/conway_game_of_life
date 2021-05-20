@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 class GoLTruths with ChangeNotifier {
   List<List<bool>> _cells = [];
   List<List<bool>> _nextIterationCells = [];
+  bool _expansionSymmetricRequired = false;
   bool _ready = false;
   Timer updateTimer;
 
@@ -54,6 +55,10 @@ class GoLTruths with ChangeNotifier {
   }
 
   void update() {
+    if (_expansionSymmetricRequired) {
+      expandSymmetric(); // expand here before doing the cell update if expansion was flagged on last iteration
+      _expansionSymmetricRequired = false;
+    }
     _updateRows();
     notifyListeners();
   }
@@ -95,6 +100,11 @@ class GoLTruths with ChangeNotifier {
     } else {
       _nextIterationCells[i][j] = false; // dead cell condition
     }
+    if (i == 1 ||
+        j == 1 ||
+        i >= _cells.length - 1 ||
+        i >= _cells[1].length - 1) if (_nextIterationCells[i][j])
+      _expansionSymmetricRequired = true; // flag for expansion
   }
 
   expandWidth() {
@@ -110,23 +120,24 @@ class GoLTruths with ChangeNotifier {
     _cells.add([]);
     for (bool _ in _cells[1]) {
       _cells[0].add(false);
-      _cells[_cells.length].add(false);
+      _cells[_cells.length - 1].add(false);
     }
     notifyListeners();
   }
 
   expandSymmetric() {
-    for (List<bool> row in _cells) {
-      row.insert(0, false);
-      row.add(false);
-    }
     _cells.insert(0, []);
     _cells.add([]);
     for (bool _ in _cells[1]) {
       _cells[0].add(false);
-      _cells[_cells.length].add(false);
+      _cells[_cells.length - 1].add(false);
     }
-    notifyListeners(); // worried about calling notifyListeners while notifying listeners so rewriting the contents for this one
+    for (List<bool> row in _cells) {
+      row.insert(0, false);
+      row.add(false);
+    }
+
+    //notifyListeners(); // worried about calling notifyListeners while notifying listeners so rewriting the contents for this one
   }
 
   _tallyTruths() {
@@ -141,6 +152,7 @@ class GoLTruths with ChangeNotifier {
 }
 
 class Cell {
+  // unessecary because of recreated enumerate function
   final int id;
   bool status;
   Cell({this.id, this.status});
