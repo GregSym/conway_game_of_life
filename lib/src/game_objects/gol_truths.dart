@@ -39,6 +39,8 @@ class GoLTruths with ChangeNotifier {
         row.add(false);
       }
     }
+    _nextIterationCells = List.from(
+        _cells); // added creation of the next phase cell grid to the init method
     _ready = true;
     notifyListeners();
   }
@@ -91,12 +93,11 @@ class GoLTruths with ChangeNotifier {
     ];
     for (bool neighbour in neighbours) if (neighbour) aliveNeighbours++;
     if (!currentCell && aliveNeighbours == 3) {
+      // if cell is dead and has 3 alive neighbours
       _nextIterationCells[i][j] = true; // dead comes alive
-    } else if (currentCell) {
-      if (aliveNeighbours == 2 || aliveNeighbours == 3)
-        _nextIterationCells[i][j] = true; // alive stays alive
-      else
-        _nextIterationCells[i][j] = false; // dead cell condition
+    } else if (currentCell && (aliveNeighbours == 2 || aliveNeighbours == 3)) {
+      // if cell is alive and has either 2 or 3 alive neighbours
+      _nextIterationCells[i][j] = true; // alive stays alive
     } else {
       _nextIterationCells[i][j] = false; // dead cell condition
     }
