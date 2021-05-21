@@ -61,7 +61,7 @@ class MaterialCanvasGoL extends StatelessWidget {
     const int exclusionRange = 2;
     if (row < exclusionRange ||
         col < exclusionRange ||
-        row >= Provider.of<GoLTruths>(context).crossAxis - exclusionRange ||
+        row >= Provider.of<GoLTruths>(context).truths.length - exclusionRange ||
         col >= Provider.of<GoLTruths>(context).crossAxis - exclusionRange)
       return Container();
     // returns the widget responsible for rendering each cell
