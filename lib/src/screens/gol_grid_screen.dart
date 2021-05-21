@@ -33,6 +33,24 @@ class MaterialCanvasGoL extends StatelessWidget {
             ),
             Text(Provider.of<GoLTruths>(context).gameMessage),
             Text(Provider.of<GoLTruths>(context).totalAlive.toString()),
+            PopupMenuButton(
+                itemBuilder: (BuildContext context) => [
+                      PopupMenuItem(
+                          value: "Select Colour",
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Select Colour"),
+                              Icon(
+                                Icons.circle,
+                                color: ColorConstants().aliveColor,
+                              )
+                            ],
+                          )),
+                      PopupMenuItem(
+                          value: "About this App",
+                          child: Text("About this App")),
+                    ])
           ],
         ),
       ),

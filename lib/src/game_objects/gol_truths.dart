@@ -50,7 +50,7 @@ class GoLTruths with ChangeNotifier {
 
   resetGame() {
     _cells.clear();
-    updateTimer.cancel();
+    if (updateTimer != null) updateTimer.cancel();
     initGame();
   }
 
