@@ -6,17 +6,19 @@ class GoLTruths with ChangeNotifier {
   List<List<bool>> _cells = [];
   List<List<bool>> _nextIterationCells = [];
   bool _expansionSymmetricRequired = false;
+  String _gameMessage;
   bool _ready = false;
   Timer updateTimer;
 
   // starting dimensions
-  int _width = 10;
-  int _height = 10;
+  static int _width = 13;
+  static int _height = 26;
 
   // getters
   int get crossAxis => _cells[0].length;
   List<List<bool>> get truths => _cells;
   int get totalAlive => _tallyTruths();
+  String get gameMessage => _gameMessage;
   bool get isReady => _ready;
 
   // setters
@@ -41,6 +43,7 @@ class GoLTruths with ChangeNotifier {
     }
     _nextIterationCells = List.from(
         _cells); // added creation of the next phase cell grid to the init method
+    _gameMessage = "Setup the cells!";
     _ready = true;
     notifyListeners();
   }
@@ -52,12 +55,14 @@ class GoLTruths with ChangeNotifier {
   }
 
   driveUpdate() {
+    _gameMessage = "Game in progress...";
     updateTimer =
         Timer.periodic(Duration(milliseconds: 500), (timer) => update());
   }
 
   void update() {
     if (_expansionSymmetricRequired) {
+      expandSymmetric();
       expandSymmetric(); // expand here before doing the cell update if expansion was flagged on last iteration
       _expansionSymmetricRequired = false;
     }
@@ -103,10 +108,11 @@ class GoLTruths with ChangeNotifier {
     } else {
       _nextIterationCells[i][j] = false; // dead cell condition
     }
-    if (i == 1 ||
-        j == 1 ||
-        i >= _cells.length - 1 ||
-        i >= _cells[1].length - 1) if (_nextIterationCells[i][j])
+    const int growthTrigger = 5;
+    if (i <= growthTrigger ||
+        j <= growthTrigger ||
+        i >= _cells.length - growthTrigger ||
+        j >= _cells[1].length - growthTrigger) if (_nextIterationCells[i][j])
       _expansionSymmetricRequired = true; // flag for expansion
   }
 

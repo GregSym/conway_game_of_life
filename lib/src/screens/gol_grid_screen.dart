@@ -19,6 +19,7 @@ class MaterialCanvasGoL extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             IconButton(
               icon: Icon(Icons.refresh),
@@ -30,6 +31,8 @@ class MaterialCanvasGoL extends StatelessWidget {
               onPressed: () =>
                   Provider.of<GoLTruths>(context, listen: false).driveUpdate(),
             ),
+            Text(Provider.of<GoLTruths>(context).gameMessage),
+            Text(Provider.of<GoLTruths>(context).totalAlive.toString()),
           ],
         ),
       ),
@@ -54,8 +57,13 @@ class MaterialCanvasGoL extends StatelessWidget {
     );
   }
 
-  Consumer<GoLTruths> _cellWidget(
-      BuildContext context, int row, int col, bool cell) {
+  Widget _cellWidget(BuildContext context, int row, int col, bool cell) {
+    const int exclusionRange = 2;
+    if (row < exclusionRange ||
+        col < exclusionRange ||
+        row >= Provider.of<GoLTruths>(context).crossAxis - exclusionRange ||
+        col >= Provider.of<GoLTruths>(context).crossAxis - exclusionRange)
+      return Container();
     // returns the widget responsible for rendering each cell
     return Consumer<GoLTruths>(
         builder: (context, _goLTruths, _) => Padding(
