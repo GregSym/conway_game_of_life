@@ -1,3 +1,4 @@
+import 'package:conway_game_of_life/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 List<Color> colourOptions = [
@@ -13,6 +14,7 @@ class ColourMenu extends StatelessWidget {
     return Column(
       children: colourOptions
           .map((colourOption) => ListTile(
+                onTap: () => colourConstants.setAliveColor = colourOption,
                 title: Icon(
                   Icons.circle,
                   color: colourOption,

@@ -1,5 +1,6 @@
 import 'package:conway_game_of_life/src/constants/color_constants.dart';
 import 'package:conway_game_of_life/src/game_objects/gol_truths.dart';
+import 'package:conway_game_of_life/src/widgets/colour_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -37,15 +38,20 @@ class MaterialCanvasGoL extends StatelessWidget {
                 itemBuilder: (BuildContext context) => [
                       PopupMenuItem(
                           value: "Select Colour",
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Select Colour"),
-                              Icon(
-                                Icons.circle,
-                                color: ColorConstants().aliveColor,
-                              )
-                            ],
+                          child: GestureDetector(
+                            onTap: () => showModalBottomSheet(
+                                context: context,
+                                builder: (context) => ColourMenu()),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Select Colour"),
+                                Icon(
+                                  Icons.circle,
+                                  color: ColorConstants().aliveColor,
+                                )
+                              ],
+                            ),
                           )),
                       PopupMenuItem(
                           value: "About this App",
@@ -74,7 +80,7 @@ class MaterialCanvasGoL extends StatelessWidget {
                   ),
                 ),
         ),
-        color: ColourConstants.aliveColor,
+        color: colourConstants.aliveColor,
       ),
     );
   }

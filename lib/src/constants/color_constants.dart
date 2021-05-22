@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ColorConstants {
-  const ColorConstants();
-  Color get aliveColor => Colors.purple[600];
+  ColorConstants();
+
+  Color _aliveColor = Colors.purple[600];
+  Color get aliveColor => _aliveColor;
+  set setAliveColor(Color color) => _aliveColor = color;
 }
 
-const ColorConstants ColourConstants = ColorConstants();
+ColorConstants colourConstants = ColorConstants();
