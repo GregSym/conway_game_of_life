@@ -17,6 +17,8 @@ Iterable<MapEntry<int, T>> enumerate<T>(Iterable<T> items) sync* {
 class MaterialCanvasGoL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("rebuilt");
+    Color aliveColor = Provider.of<ColorConstants>(context).aliveColor;
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -80,7 +82,7 @@ class MaterialCanvasGoL extends StatelessWidget {
                   ),
                 ),
         ),
-        color: colourConstants.aliveColor,
+        color: aliveColor,
       ),
     );
   }
