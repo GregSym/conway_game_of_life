@@ -58,25 +58,34 @@ class MaterialCanvasGoL extends StatelessWidget {
         child: Consumer<GoLTruths>(
           builder: (context, _goLTruths, _) => !_goLTruths.isReady
               ? CircularProgressIndicator() // in case setup takes some time
-              : GridView(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: _goLTruths.crossAxis),
-                  children: enumerate(_goLTruths.truths)
-                      .expand((row) => row.value
-                          .asMap()
-                          .map((col, cell) => MapEntry(
-                              col, _cellWidget(context, row.key, col, cell)))
-                          .values)
-                      .toList(),
+              : GestureDetector(
+                  onScaleStart: (_) =>
+                      _goLTruths.expandSymmetric(callUpdate: true),
+                  child: GridView(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: _goLTruths.crossAxis),
+                    children: enumerate(_goLTruths.truths)
+                        .expand((row) => row.value
+                            .asMap()
+                            .map((col, cell) => MapEntry(
+                                col, _cellWidget(context, row.key, col, cell)))
+                            .values)
+                        .toList(),
+                  ),
                 ),
         ),
-        color: ColorConstants().aliveColor,
+        color: ColourConstants.aliveColor,
       ),
     );
   }
 
   Widget _cellWidget(BuildContext context, int row, int col, bool cell) {
     const int exclusionRange = 2;
+
+    CellLocation loc = CellLocation(
+      row: row,
+      col: col,
+    );
     if (row < exclusionRange ||
         col < exclusionRange ||
         row >= Provider.of<GoLTruths>(context).truths.length - exclusionRange ||
@@ -91,10 +100,7 @@ class MaterialCanvasGoL extends StatelessWidget {
                     ? ColorConstants().aliveColor
                     : Colors.white,
                 child: ListTile(
-                  onTap: () => _goLTruths.toggleCell = CellLocation(
-                    row: row,
-                    col: col,
-                  ),
+                  onTap: () => _goLTruths.toggleCell = loc,
                 ),
               ),
             ));
