@@ -134,7 +134,7 @@ class GoLTruths with ChangeNotifier {
     notifyListeners();
   }
 
-  expandSymmetric() {
+  expandSymmetric({bool callUpdate = false}) {
     _cells.insert(0, []);
     _cells.add([]);
     for (bool _ in _cells[1]) {
@@ -146,7 +146,8 @@ class GoLTruths with ChangeNotifier {
       row.add(false);
     }
 
-    //notifyListeners(); // worried about calling notifyListeners while notifying listeners so rewriting the contents for this one
+    if (callUpdate)
+      notifyListeners(); // worried about calling notifyListeners while notifying listeners so rewriting the contents for this one
   }
 
   _tallyTruths() {
