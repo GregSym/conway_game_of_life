@@ -18,6 +18,8 @@ on:
     
 jobs:
   build:
+    env:
+      my_secret: ${{secrets.commit_secret}}
     # This job will run on ubuntu virtual machine
     runs-on: ubuntu-latest
     steps:
@@ -32,5 +34,21 @@ jobs:
   
     # Get flutter dependencies.
     - run: flutter pub get
-    
+    # create the release version of the site on the virtual machine
     - run: flutter build web
+    # push the release version
+    - run: |
+          cd build/web
+          git init
+          # type configurations: your user.email and user.name followed lines 
+          # git config --global user.email your_email 
+          # git config --global user.name your_name 
+          git config --global user.email gtsrex@gmail.com
+          git config --global user.name GregSym
+          git status
+          # change this remote url for examle your remote url is https://github.com/onatcipli/flutter_web.git then the following:
+          git remote add origin https://${{secrets.commit_secret}}@github.com/GregSym/conway_game_of_life.git
+          git checkout -b gh-pages
+          git add --all
+          git commit -m "update"
+          git push origin gh-pages -f
