@@ -32,3 +32,5 @@ jobs:
   
     # Get flutter dependencies.
     - run: flutter pub get
+    
+    - run: flutter build web
