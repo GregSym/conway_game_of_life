@@ -19,7 +19,13 @@ jobs:
   build:
     # This job will run on ubuntu virtual machine
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: root
     steps:
+    
+    
     
     # Setup the flutter environment.
     - uses: subosito/flutter-action@v1
