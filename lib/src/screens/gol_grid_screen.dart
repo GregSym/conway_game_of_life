@@ -1,5 +1,6 @@
 import 'package:conway_game_of_life/src/constants/color_constants.dart';
 import 'package:conway_game_of_life/src/game_objects/gol_truths.dart';
+import 'package:conway_game_of_life/src/screens/about_this_app.dart';
 import 'package:conway_game_of_life/src/widgets/colour_options.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +58,11 @@ class MaterialCanvasGoL extends StatelessWidget {
                           )),
                       PopupMenuItem(
                           value: "About this App",
-                          child: Text("About this App")),
+                          child: GestureDetector(
+                              onTap: () => showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) => AboutThisApp()),
+                              child: Text("About this App"))),
                     ])
           ],
         ),
@@ -69,6 +74,10 @@ class MaterialCanvasGoL extends StatelessWidget {
               : GestureDetector(
                   onScaleStart: (_) =>
                       _goLTruths.expandSymmetric(callUpdate: true),
+                  onScaleUpdate: (ScaleUpdateDetails scaleUpdateDetails) =>
+                      scaleUpdateDetails.scale >= 50
+                          ? _goLTruths.expandSymmetric(callUpdate: true)
+                          : null,
                   child: GridView(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: _goLTruths.crossAxis),
@@ -77,6 +86,12 @@ class MaterialCanvasGoL extends StatelessWidget {
                             .asMap()
                             .map((col, cell) => MapEntry(
                                 col, _cellWidget(context, row.key, col, cell)))
+                            // col,
+                            // CellWidget(
+                            //   row: row.key,
+                            //   col: col,
+                            //   cell: cell,
+                            // )))
                             .values)
                         .toList(),
                   ),
@@ -105,6 +120,60 @@ class MaterialCanvasGoL extends StatelessWidget {
               padding: const EdgeInsets.all(2.0),
               child: Container(
                 color: _goLTruths.truths[row][col]
+                    ? ColorConstants().aliveColor
+                    : Colors.white,
+                child: ListTile(
+                  onTap: () => _goLTruths.toggleCell = loc,
+                ),
+              ),
+            ));
+  }
+}
+
+class CellWidget extends StatefulWidget {
+  /*
+
+  A backup implementation that may perform better in practice 
+  - regular debug mode does not illuminate this point
+
+  */
+  final int row;
+  final int col;
+  final bool cell;
+  CellWidget({Key key, this.row, this.col, this.cell}) : super(key: key);
+
+  @override
+  _CellWidgetState createState() => _CellWidgetState();
+}
+
+class _CellWidgetState extends State<CellWidget> {
+  static const int exclusionRange = 2;
+  CellLocation loc;
+  @override
+  void initState() {
+    super.initState();
+
+    loc = CellLocation(
+      row: widget.row,
+      col: widget.col,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.row < exclusionRange ||
+        widget.col < exclusionRange ||
+        widget.row >=
+            Provider.of<GoLTruths>(context).truths.length - exclusionRange ||
+        widget.col >=
+            Provider.of<GoLTruths>(context).crossAxis - exclusionRange)
+      return Container();
+    // returns the widget responsible for rendering each cell
+    return Consumer<GoLTruths>(
+        builder: (context, _goLTruths, _) => Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Container(
+                color: _goLTruths.truths[widget.row][widget.col]
                     ? ColorConstants().aliveColor
                     : Colors.white,
                 child: ListTile(

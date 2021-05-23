@@ -6,6 +6,7 @@ class AboutThisApp extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
               "About this App:",
@@ -41,8 +42,22 @@ class RuleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [Icon(Icons.east), Text(ruleText)],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(
+            Icons.east,
+            color: Colors.red,
+          ),
+          Text(
+            ruleText,
+            textAlign: TextAlign.center,
+            softWrap: true,
+          )
+        ],
+      ),
     );
   }
 }
