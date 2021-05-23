@@ -28,6 +28,6 @@ jobs:
       with:
         channel: 'stable' # 'dev', 'alpha', default to: 'stable' - was set to beta
         # flutter-version: '1.12.x' # you can also specify exact version of flutter
-    
+    - run: cd ~
     # Get flutter dependencies.
     - run: flutter pub get
