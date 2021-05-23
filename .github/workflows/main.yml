@@ -6,7 +6,8 @@ name: conway_game_of_life Web Release CI
 on:
   # Triggers the workflow on push or pull request events but only for the spoon branch
   push:
-    branches: [ spoon ]
+    branches: 
+      - spoon
   pull_request:
     branches: [ spoon ]
 
@@ -21,13 +22,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-    
+    - uses: actions/checkout@v1
     
     # Setup the flutter environment.
     - uses: subosito/flutter-action@v1
       with:
         channel: 'stable' # 'dev', 'alpha', default to: 'stable' - was set to beta
         # flutter-version: '1.12.x' # you can also specify exact version of flutter
-    - run: cd ~
+  
     # Get flutter dependencies.
     - run: flutter pub get
