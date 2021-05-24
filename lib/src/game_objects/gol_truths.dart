@@ -8,6 +8,7 @@ class GoLTruths with ChangeNotifier {
   bool _expansionSymmetricRequired = false;
   String _gameMessage;
   bool _ready = false;
+  bool _running = false;
   Timer updateTimer;
 
   // starting dimensions
@@ -20,6 +21,7 @@ class GoLTruths with ChangeNotifier {
   int get totalAlive => _tallyTruths();
   String get gameMessage => _gameMessage;
   bool get isReady => _ready;
+  bool get isRunning => _running;
 
   // setters
   set toggleCell(CellLocation loc) => _toggleCell(loc);
@@ -44,6 +46,7 @@ class GoLTruths with ChangeNotifier {
     _nextIterationCells = List.from(
         _cells); // added creation of the next phase cell grid to the init method
     _gameMessage = "Setup the cells!";
+    if (_running) _running = false;
     _ready = true;
     notifyListeners();
   }
@@ -56,6 +59,7 @@ class GoLTruths with ChangeNotifier {
 
   driveUpdate() {
     _gameMessage = "Game in progress...";
+    _running = true;
     updateTimer =
         Timer.periodic(Duration(milliseconds: 500), (timer) => update());
   }
