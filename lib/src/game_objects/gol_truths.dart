@@ -3,6 +3,13 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 class GoLTruths with ChangeNotifier {
+  /*
+    Controller for the Game of Life
+    - contains the grid of GoL cells
+    - TODO: add shrinking functions
+    - TODO: add optemisations for the calculation from instance to instance
+    - TODO: add more resizing options (for landscape screens in particular)
+  */
   List<List<bool>> _cells = [];
   List<List<bool>> _nextIterationCells = [];
   bool _expansionSymmetricRequired = false;

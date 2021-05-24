@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AboutThisApp extends StatelessWidget {
+  /*
+  An about this app screen - might be worked into a reactive solution!
+  TODO: add more info about John Conway!
+  */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
