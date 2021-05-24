@@ -12,12 +12,20 @@ class AboutThisApp extends StatelessWidget {
             children: [
               Text(
                 "About this App:",
+                textAlign: TextAlign.center,
               ),
               Text(
-                  "This is a demonstration of Conway's Game of Life, a mathematical model of cellular automata"),
+                "This is a demonstration of Conway's Game of Life, a mathematical model of cellular automata",
+                textAlign: TextAlign.center,
+              ),
               Text(
-                  "Each cell is governed by a set of rules based on its relationship to surrounding cells."),
-              Text("The rules may be simplified as follows: "),
+                "Each cell is governed by a set of rules based on its relationship to surrounding cells.",
+                textAlign: TextAlign.center,
+              ),
+              Text(
+                "The rules may be simplified as follows: ",
+                textAlign: TextAlign.center,
+              ),
               RuleText(
                   ruleText:
                       "Any dead cell comes alive when neighbouring 3 alive cells"),
@@ -27,7 +35,10 @@ class AboutThisApp extends StatelessWidget {
               RuleText(
                   ruleText:
                       "All other cells will be dead in the next iteration of the Game"),
-              Text("App Author: Gregory Symington"),
+              Text(
+                "App Author: Gregory Symington",
+                textAlign: TextAlign.center,
+              ),
             ],
           ),
         ),
