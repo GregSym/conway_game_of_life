@@ -57,6 +57,7 @@ class RuleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -66,10 +67,13 @@ class RuleText extends StatelessWidget {
             Icons.east,
             color: Colors.red,
           ),
-          Text(
-            ruleText,
-            textAlign: TextAlign.center,
-            softWrap: true,
+          Container(
+            width: screenSize.width / 1.5,
+            child: Text(
+              ruleText,
+              textAlign: TextAlign.center,
+              softWrap: true,
+            ),
           )
         ],
       ),
