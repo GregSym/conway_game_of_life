@@ -14,14 +14,17 @@ class ColourMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: colourOptions
-          .map((colourOption) => ListTile(
-                onTap: () => Provider.of<ColorConstants>(context, listen: false)
-                    .setAliveColor = colourOption,
-                leading: Icon(
-                  Icons.circle,
-                  color: colourOption,
-                ),
-              ))
+          .map(
+            (colourOption) => ListTile(
+              onTap: () => Provider.of<ColorConstants>(context, listen: false)
+                  .setAliveColor = colourOption,
+              leading: Icon(
+                Icons.circle,
+                color: colourOption,
+              ),
+              title: Text("Colour option"),
+            ),
+          )
           .toList(),
     );
   }
