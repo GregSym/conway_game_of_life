@@ -17,7 +17,7 @@ class ColourMenu extends StatelessWidget {
           .map((colourOption) => ListTile(
                 onTap: () => Provider.of<ColorConstants>(context, listen: false)
                     .setAliveColor = colourOption,
-                title: Icon(
+                leading: Icon(
                   Icons.circle,
                   color: colourOption,
                 ),

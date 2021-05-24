@@ -30,11 +30,14 @@ class MaterialCanvasGoL extends StatelessWidget {
               onPressed: () =>
                   Provider.of<GoLTruths>(context, listen: false).resetGame(),
             ),
-            IconButton(
-              icon: Icon(Icons.play_arrow_rounded),
-              onPressed: () =>
-                  Provider.of<GoLTruths>(context, listen: false).driveUpdate(),
-            ),
+            (Provider.of<GoLTruths>(context).isRunning)
+                ? CircularProgressIndicator()
+                : IconButton(
+                    icon: Icon(Icons.play_arrow_rounded),
+                    onPressed: () =>
+                        Provider.of<GoLTruths>(context, listen: false)
+                            .driveUpdate(),
+                  ),
             Text(Provider.of<GoLTruths>(context).gameMessage),
             Text(Provider.of<GoLTruths>(context).totalAlive.toString()),
             PopupMenuButton(
