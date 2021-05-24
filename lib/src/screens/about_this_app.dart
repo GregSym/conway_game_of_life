@@ -13,6 +13,9 @@ class AboutThisApp extends StatelessWidget {
               Text(
                 "About this App:",
                 textAlign: TextAlign.center,
+                style: DefaultTextStyle.of(context)
+                    .style
+                    .apply(fontSizeFactor: 2.0),
               ),
               Text(
                 "This is a demonstration of Conway's Game of Life, a mathematical model of cellular automata",
