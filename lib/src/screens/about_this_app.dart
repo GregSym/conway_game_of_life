@@ -27,6 +27,7 @@ class AboutThisApp extends StatelessWidget {
               RuleText(
                   ruleText:
                       "All other cells will be dead in the next iteration of the Game"),
+              Text("App Author: Gregory Symington"),
             ],
           ),
         ),
