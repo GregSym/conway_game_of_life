@@ -36,6 +36,15 @@ jobs:
     - run: flutter pub get
     # create the release version of the site on the virtual machine
     - run: flutter build web
+    
+    # configure the index.html file to run correctly on the github pages platform
+    - run: cat index.html
+      working-directory: /home/runner/work/conway_game_of_life/conway_game_of_life/build/web
+    - run: sed -i '/base href/d' index.html #For MacOS : sed -i '' '/base href/d' index.html
+      working-directory: /home/runner/work/conway_game_of_life/conway_game_of_life/build/web
+    - run: cat index.html
+      working-directory: /home/runner/work/conway_game_of_life/conway_game_of_life/build/web
+      
     # push the release version
     - run: |
           cd build/web
