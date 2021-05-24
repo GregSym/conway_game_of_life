@@ -31,7 +31,9 @@ class MaterialCanvasGoL extends StatelessWidget {
                   Provider.of<GoLTruths>(context, listen: false).resetGame(),
             ),
             (Provider.of<GoLTruths>(context).isRunning)
-                ? CircularProgressIndicator()
+                ? CircularProgressIndicator(
+                    backgroundColor: Colors.white,
+                  )
                 : IconButton(
                     icon: Icon(Icons.play_arrow_rounded),
                     onPressed: () =>
