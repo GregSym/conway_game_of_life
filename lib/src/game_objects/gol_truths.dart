@@ -6,7 +6,6 @@ class GoLTruths with ChangeNotifier {
   /*
     Controller for the Game of Life
     - contains the grid of GoL cells
-    - TODO: add shrinking functions
     - TODO: add optemisations for the calculation from instance to instance
     - TODO: add more resizing options (for landscape screens in particular)
   */
@@ -159,6 +158,25 @@ class GoLTruths with ChangeNotifier {
 
     if (callUpdate)
       notifyListeners(); // worried about calling notifyListeners while notifying listeners so rewriting the contents for this one
+  }
+
+  // SHRINKING FUNCTIONS
+  reduceWidth() {
+    for (List<bool> row in _cells) {
+      row.removeAt(0);
+      row.removeLast();
+    }
+  }
+
+  reduceHeight() {
+    _cells.removeAt(0);
+    _cells.removeLast();
+  }
+
+  reduceSymmetric({bool callUpdate = false}) {
+    reduceWidth();
+    reduceHeight();
+    if (callUpdate) notifyListeners();
   }
 
   _tallyTruths() {

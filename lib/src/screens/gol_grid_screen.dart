@@ -20,6 +20,7 @@ class MaterialCanvasGoL extends StatelessWidget {
   Widget build(BuildContext context) {
     print("rebuilt");
     Color aliveColor = Provider.of<ColorConstants>(context).aliveColor;
+    bool _expand = true;
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -77,12 +78,17 @@ class MaterialCanvasGoL extends StatelessWidget {
           builder: (context, _goLTruths, _) => !_goLTruths.isReady
               ? CircularProgressIndicator() // in case setup takes some time
               : GestureDetector(
-                  onScaleStart: (_) =>
-                      _goLTruths.expandSymmetric(callUpdate: true),
+                  // onScaleStart: (ScaleStartDetails scaleStartDetails) =>
+                  //     _goLTruths.expandSymmetric(callUpdate: true),
                   onScaleUpdate: (ScaleUpdateDetails scaleUpdateDetails) =>
-                      scaleUpdateDetails.scale >= 50
-                          ? _goLTruths.expandSymmetric(callUpdate: true)
-                          : null,
+                      // print(
+                      //     "scale: ${scaleUpdateDetails.scale}"), // for debugging
+                      (scaleUpdateDetails.scale < 1)
+                          ? _expand = true
+                          : _expand = false,
+                  onScaleEnd: (ScaleEndDetails scaleEndDetails) => _expand
+                      ? _goLTruths.expandSymmetric(callUpdate: true)
+                      : _goLTruths.reduceSymmetric(callUpdate: true),
                   child: GridView(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: _goLTruths.crossAxis),
