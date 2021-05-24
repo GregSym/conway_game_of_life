@@ -65,7 +65,7 @@ class RuleText extends StatelessWidget {
         children: [
           Icon(
             Icons.east,
-            color: Colors.red,
+            color: Colors.purple[600],
           ),
           Container(
             width: screenSize.width / 1.5,
