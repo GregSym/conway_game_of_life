@@ -1,6 +1,7 @@
 import 'package:conway_game_of_life/src/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:color_parser/color_parser.dart';
 
 List<Color> colourOptions = [
   Colors.purple[600],
@@ -22,7 +23,8 @@ class ColourMenu extends StatelessWidget {
                 Icons.circle,
                 color: colourOption,
               ),
-              title: Text("Colour option"),
+              title: Text(
+                  "Colour option ${ColorParser.color(colourOption).toName()}"),
             ),
           )
           .toList(),
