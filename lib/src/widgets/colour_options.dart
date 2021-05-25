@@ -16,7 +16,9 @@ class ColourMenu extends StatelessWidget {
     return Column(
       children: colourOptions
           .map(
-            (colourOption) => ColourOptionTile(),
+            (colourOption) => ColourOptionTile(
+              colourOption: colourOption,
+            ),
           )
           .toList(),
     );
