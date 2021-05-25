@@ -16,18 +16,34 @@ class ColourMenu extends StatelessWidget {
     return Column(
       children: colourOptions
           .map(
-            (colourOption) => ListTile(
-              onTap: () => Provider.of<ColorConstants>(context, listen: false)
-                  .setAliveColor = colourOption,
-              leading: Icon(
-                Icons.circle,
-                color: colourOption,
-              ),
-              title: Text(
-                  "Colour option ${ColorParser.color(colourOption).toName()}"),
-            ),
+            (colourOption) => ColourOptionTile(),
           )
           .toList(),
+    );
+  }
+}
+
+class ColourOptionTile extends StatelessWidget {
+  final Color colourOption;
+  const ColourOptionTile({
+    Key key,
+    this.colourOption,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        onTap: () => Provider.of<ColorConstants>(context, listen: false)
+            .setAliveColor = colourOption,
+        leading: Icon(
+          Icons.circle,
+          color: colourOption,
+        ),
+        title:
+            Text("Colour option ${ColorParser.color(colourOption).toName()}"),
+      ),
     );
   }
 }
