@@ -75,7 +75,7 @@ class RuleText extends StatelessWidget {
             color: Colors.purple[600],
           ),
           Container(
-            width: screenSize.width / 1.5,
+            width: screenSize.width / 1.2,
             child: Text(
               ruleText,
               textAlign: TextAlign.center,
