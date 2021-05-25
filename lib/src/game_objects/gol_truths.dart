@@ -18,8 +18,8 @@ class GoLTruths with ChangeNotifier {
   Timer updateTimer;
 
   // starting dimensions
-  static int _width = 13;
-  static int _height = 26;
+  static const int _width = 13;
+  static const int _height = 26;
 
   // getters
   int get crossAxis => _cells[0].length;
@@ -38,17 +38,19 @@ class GoLTruths with ChangeNotifier {
   }
 
   // methods
-  initGame() {
-    for (int j = 0; j < _height; j++) {
+  void initGame({int width = _width, int height = _height}) {
+    // setup
+    for (int j = 0; j < height; j++) {
       // set height
       _cells.add([]);
     }
-    for (int i = 0; i < _width; i++) {
+    for (int i = 0; i < width; i++) {
       // set width
       for (List<bool> row in _cells) {
         row.add(false);
       }
     }
+    // the rest of the game
     _nextIterationCells = List.from(
         _cells); // added creation of the next phase cell grid to the init method
     _gameMessage = "Setup the cells!";
