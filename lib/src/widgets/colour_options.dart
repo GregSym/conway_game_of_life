@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:color_parser/color_parser.dart'; //thanks github user deepak786!
 
-List<Color?> colourOptions = [
-  Colors.purple[600],
-  Colors.red[600],
-  Colors.blue[600],
-  Colors.orange[600]
+List<Color> colourOptions = [
+  Colors.purple[
+      600]!, // elements of the swatch table appear to return Color? not Color
+  Colors.red[600]!,
+  Colors.blue[600]!,
+  Colors.orange[600]!
 ];
 
 class ColourMenu extends StatelessWidget {
@@ -26,10 +27,10 @@ class ColourMenu extends StatelessWidget {
 }
 
 class ColourOptionTile extends StatelessWidget {
-  final Color? colourOption;
+  final Color colourOption;
   const ColourOptionTile({
     Key? key,
-    this.colourOption,
+    required this.colourOption,
   }) : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class ColourOptionTile extends StatelessWidget {
           color: colourOption,
         ),
         title:
-            Text("Colour option ${ColorParser.color(colourOption!).toName()}"),
+            Text("Colour option ${ColorParser.color(colourOption).toName()}"),
       ),
     );
   }

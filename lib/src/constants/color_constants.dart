@@ -9,12 +9,12 @@ class ColorConstants with ChangeNotifier {
   */
   ColorConstants();
 
-  Color? _aliveColor = Colors.purple[600];
+  Color _aliveColor = Colors.purple[600]!;
   Color? get aliveColor => _aliveColor;
   Color get hRefColor => Colors.blue;
-  set setAliveColor(Color? color) => _setAliveColor(color);
+  set setAliveColor(Color color) => _setAliveColor(color);
 
-  void _setAliveColor(Color? color) {
+  void _setAliveColor(Color color) {
     _aliveColor = color;
     notifyListeners();
   }
