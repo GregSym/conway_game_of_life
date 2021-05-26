@@ -65,8 +65,8 @@ class AboutThisApp extends StatelessWidget {
 
 class RuleText extends StatelessWidget {
   const RuleText({
-    Key key,
-    @required this.ruleText,
+    Key? key,
+    required this.ruleText,
   }) : super(key: key);
 
   final String ruleText;

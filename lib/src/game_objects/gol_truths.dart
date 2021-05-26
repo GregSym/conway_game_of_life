@@ -12,10 +12,10 @@ class GoLTruths with ChangeNotifier {
   List<List<bool>> _cells = [];
   List<List<bool>> _nextIterationCells = [];
   bool _expansionSymmetricRequired = false;
-  String _gameMessage;
+  String? _gameMessage;
   bool _ready = false;
   bool _running = false;
-  Timer updateTimer;
+  Timer? updateTimer;
 
   // starting dimensions
   static const int _width = 13;
@@ -25,7 +25,7 @@ class GoLTruths with ChangeNotifier {
   int get crossAxis => _cells[0].length;
   List<List<bool>> get truths => _cells;
   int get totalAlive => _tallyTruths();
-  String get gameMessage => _gameMessage;
+  String? get gameMessage => _gameMessage;
   bool get isReady => _ready;
   bool get isRunning => _running;
 
@@ -33,7 +33,7 @@ class GoLTruths with ChangeNotifier {
   set toggleCell(CellLocation loc) => _toggleCell(loc);
 
   _toggleCell(CellLocation loc) {
-    _cells[loc.row][loc.col] = !_cells[loc.row][loc.col];
+    _cells[loc.row!][loc.col!] = !_cells[loc.row!][loc.col!];
     notifyListeners();
   }
 
@@ -61,7 +61,7 @@ class GoLTruths with ChangeNotifier {
 
   resetGame() {
     _cells.clear();
-    if (updateTimer != null) updateTimer.cancel();
+    if (updateTimer != null) updateTimer!.cancel();
     initGame();
   }
 
@@ -194,13 +194,13 @@ class GoLTruths with ChangeNotifier {
 
 class Cell {
   // unessecary because of recreated enumerate function
-  final int id;
-  bool status;
+  final int? id;
+  bool? status;
   Cell({this.id, this.status});
 }
 
 class CellLocation {
-  final int row;
-  final int col;
+  final int? row;
+  final int? col;
   const CellLocation({this.row, this.col});
 }

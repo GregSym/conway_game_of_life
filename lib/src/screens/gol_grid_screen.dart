@@ -19,7 +19,7 @@ class MaterialCanvasGoL extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("rebuilt");
-    Color aliveColor = Provider.of<ColorConstants>(context).aliveColor;
+    Color? aliveColor = Provider.of<ColorConstants>(context).aliveColor;
     bool _expand = true;
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +41,7 @@ class MaterialCanvasGoL extends StatelessWidget {
                         Provider.of<GoLTruths>(context, listen: false)
                             .driveUpdate(),
                   ),
-            Text(Provider.of<GoLTruths>(context).gameMessage),
+            Text(Provider.of<GoLTruths>(context).gameMessage!),
             Text(Provider.of<GoLTruths>(context).totalAlive.toString()),
             PopupMenuButton(
                 itemBuilder: (BuildContext context) => [
@@ -148,10 +148,10 @@ class CellWidget extends StatefulWidget {
   - regular debug mode does not illuminate this point
 
   */
-  final int row;
-  final int col;
-  final bool cell;
-  CellWidget({Key key, this.row, this.col, this.cell}) : super(key: key);
+  final int? row;
+  final int? col;
+  final bool? cell;
+  CellWidget({Key? key, this.row, this.col, this.cell}) : super(key: key);
 
   @override
   _CellWidgetState createState() => _CellWidgetState();
@@ -159,7 +159,7 @@ class CellWidget extends StatefulWidget {
 
 class _CellWidgetState extends State<CellWidget> {
   static const int exclusionRange = 2;
-  CellLocation loc;
+  CellLocation? loc;
   @override
   void initState() {
     super.initState();
@@ -172,11 +172,11 @@ class _CellWidgetState extends State<CellWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.row < exclusionRange ||
-        widget.col < exclusionRange ||
-        widget.row >=
+    if (widget.row! < exclusionRange ||
+        widget.col! < exclusionRange ||
+        widget.row! >=
             Provider.of<GoLTruths>(context).truths.length - exclusionRange ||
-        widget.col >=
+        widget.col! >=
             Provider.of<GoLTruths>(context).crossAxis - exclusionRange)
       return Container();
     // returns the widget responsible for rendering each cell
@@ -184,11 +184,11 @@ class _CellWidgetState extends State<CellWidget> {
         builder: (context, _goLTruths, _) => Padding(
               padding: const EdgeInsets.all(2.0),
               child: Container(
-                color: _goLTruths.truths[widget.row][widget.col]
+                color: _goLTruths.truths[widget.row!][widget.col!]
                     ? ColorConstants().aliveColor
                     : Colors.white,
                 child: ListTile(
-                  onTap: () => _goLTruths.toggleCell = loc,
+                  onTap: () => _goLTruths.toggleCell = loc!,
                 ),
               ),
             ));
