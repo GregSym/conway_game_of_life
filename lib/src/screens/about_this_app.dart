@@ -1,4 +1,7 @@
+import 'package:conway_game_of_life/src/constants/color_constants.dart';
+import 'package:conway_game_of_life/src/constants/hyperlinks.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart'; //thanks flutter.dev!
 
 class AboutThisApp extends StatelessWidget {
   /*
@@ -46,6 +49,12 @@ class AboutThisApp extends StatelessWidget {
                 "App Author: Gregory Symington",
                 textAlign: TextAlign.center,
               ),
+              GestureDetector(
+                  onTap: () => launch(hyperLinks.sourceCode),
+                  child: Text(
+                    "Source code hosted by Github",
+                    style: TextStyle(color: colourConstants.hRefColor),
+                  ))
             ],
           ),
         ),
