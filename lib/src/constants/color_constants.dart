@@ -11,6 +11,7 @@ class ColorConstants with ChangeNotifier {
 
   Color _aliveColor = Colors.purple[600];
   Color get aliveColor => _aliveColor;
+  Color get hRefColor => Colors.blue;
   set setAliveColor(Color color) => _setAliveColor(color);
 
   void _setAliveColor(Color color) {
@@ -19,4 +20,4 @@ class ColorConstants with ChangeNotifier {
   }
 }
 
-ColorConstants colourConstants = ColorConstants();
+ColorConstants colourConstants = ColorConstants();  // export default line, kinda
