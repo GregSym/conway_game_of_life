@@ -80,6 +80,8 @@ class MaterialCanvasGoL extends StatelessWidget {
               : GestureDetector(
                   // onScaleStart: (ScaleStartDetails scaleStartDetails) =>
                   //     _goLTruths.expandSymmetric(callUpdate: true),
+                  onLongPressMoveUpdate: (LongPressMoveUpdateDetails details) =>
+                      _drawCellsToLife(details),
                   onScaleUpdate: (ScaleUpdateDetails scaleUpdateDetails) =>
                       // print(
                       //     "scale: ${scaleUpdateDetails.scale}"), // for debugging
@@ -139,6 +141,8 @@ class MaterialCanvasGoL extends StatelessWidget {
               ),
             ));
   }
+
+  _drawCellsToLife(LongPressMoveUpdateDetails details) {}
 }
 
 class CellWidget extends StatefulWidget {
